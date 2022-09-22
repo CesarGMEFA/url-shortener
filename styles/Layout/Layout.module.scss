@@ -1,0 +1,38 @@
+@mixin bgCover {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.main {
+  height: 100vh;
+  background-image: url("../../public/images/pexels-tom-fisk-4173685.jpg");
+  @include bgCover;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 640px) {
+  .main {
+    background-image: url("../../public/images/lago-di-limides_960_720.jpg");
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .main {
+    background-image: url("../../public/images/1-pexels-pixabay-46160.jpg");
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .main {
+    background-image: url("../../public/images/2-pexels-pixabay-46160.jpg");
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .main {
+    background-image: url("../../public/images/3-pexels-pixabay-46160.jpg");
+  }
+}

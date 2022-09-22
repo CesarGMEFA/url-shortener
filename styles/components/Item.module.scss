@@ -1,0 +1,12 @@
+
+.item {
+  margin-bottom: 1.2rem;
+  &_content {
+
+    span:nth-child(1) {
+      width: 8rem;
+      color: var(--textTitleGray);
+      display: inline-block;
+    }
+  }
+}
