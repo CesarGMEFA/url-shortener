@@ -1,25 +1,36 @@
 import Link from 'next/link'
+import { MutableRefObject } from 'react'
 import styles from '../styles/components/Item.module.scss'
 
 import { item } from '../utils/interface/item.interface'
 
-export default function Item({ url, shortUrl, views }: item) {
+import { supabase } from '../utils/supabaseClient'
+
+interface itemWithFunction {
+  item: item,
+  deleteUrl: Function
+}
+export default function Item({ item, deleteUrl }: itemWithFunction) {
+
   return (
     <section className={styles.item}>
-      <div className={styles.item_content}>
-        <span>URL: </span>
-        <span>{url}</span>
-      </div>
-      <div className={styles.item_content}>
-        <span>URL short: </span>
-        <Link href={`http://localhost:3000/url/${shortUrl}`}>
-          <a target="_target" rel='noreferrer'>http://localhost:3000/url/{shortUrl}</a>
-        </Link>
-      </div>
-      <div className={styles.item_content}>
-        <span>Views: </span>
-        <span>{views}</span>
-      </div>
+      <section className={styles.item_content}>
+        <div>
+          <span className={styles.infoTitle}>URL: </span>
+          <span>{item.url}</span>
+        </div>
+        <div>
+          <span className={styles.infoTitle}>URL short: </span>
+          <Link href={`http://localhost:3000/url/${item.shortUrl}`}>
+            <a target="_blanket" rel='noreferrer'>http://localhost:3000/url/{item.shortUrl}</a>
+          </Link>
+        </div>
+        <div>
+          <span className={styles.infoTitle_views}>Views: </span>
+          <span>{item.views}</span>
+        </div>
+      </section>
+      <button className={styles.button} type='button' onClick={() => deleteUrl(item.shortUrl)}>X</button>
     </section>
   )
 }

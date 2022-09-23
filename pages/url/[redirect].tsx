@@ -1,38 +1,53 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useRouter } from "next/router";
 
 import { item } from "../../utils/interface/item.interface";
+
+import { supabase } from "../../utils/supabaseClient";
+import { DataContext } from "../../utils/hooks/appContext";
 
 import LoaderPage from "../../components/LoaderPage";
 
 export default function Redirect() {
   const [item, setItem]: any = useState(null)
+  const { setLink }: any = useContext(DataContext)
   const router = useRouter()
   const { redirect } = router.query
+
+  async function postViews(item: item) {
+    const { data, error } = await supabase
+      .from('link')
+      .update({ views: item.views })
+      .eq('shortUrl', item.shortUrl)
+    if (error) throw error
+    console.log('send', data)
+  }
   
   useEffect(() => {
-    const data = localStorage.getItem("urls");
+  const data = localStorage.getItem("urls");
+  
+  if (data) {
+    const urlsData: item[] = JSON.parse(data);
     
-    if (data) {
-      const urlsData = JSON.parse(data);
-      
-      const itemUrl = urlsData.find( (e: item) => e.shortUrl === redirect)
+    const itemUrl = urlsData.find( (e: item) => e.shortUrl === redirect)
 
-      if (itemUrl) {
-        setItem(itemUrl)
-        setTimeout(() => {
-          window.location.href = itemUrl.url
-        }, 2000)
-      } else {
-        setItem(undefined);
-        console.log('urls', urlsData)
-        console.log('redirect', redirect)
-        console.log('itemUrl', itemUrl)
-      }
+    if (itemUrl) {
+      if (itemUrl.views) itemUrl.views++
+      localStorage.setItem("urls", JSON.stringify(itemUrl))
+      setLink(itemUrl)
+      setItem(itemUrl)
+      postViews(itemUrl);
+      setTimeout(() => {
+        window.location.href = itemUrl.url
+      }, 2000)
     } else {
       setItem(undefined);
-    };
-  }, [redirect])
+      console.log('itemUrl', itemUrl)
+    }
+  } else {
+    setItem(undefined);
+  };
+}, [redirect])
 
   return <LoaderPage item={item} id={redirect} />
 }

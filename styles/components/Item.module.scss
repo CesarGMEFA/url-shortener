@@ -1,12 +1,43 @@
 
 .item {
   margin-bottom: 1.2rem;
-  &_content {
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .button {
+    padding: 0.6rem 2rem 0.5rem;
+    color: red;
+    font-weight: 500;
+    font-size: 1.6rem;
+    background-color: var(--white);
+    border: 2px solid red;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: var(--black);
+  }
+}
+.item_content {
+
+  div {
     span:nth-child(1) {
-      width: 8rem;
       color: var(--textTitleGray);
       display: inline-block;
     }
+    .infoTitle {
+      width: 8rem;
+    }
+    .infoTitle_views {
+      width: 5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .item {
+    flex-direction: row;
   }
 }

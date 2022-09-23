@@ -1,10 +1,12 @@
 :root {
   --white: #ffffff;
+  --black: #000000 ;
   --textGrayInput: #374151;
   --textTitleGray: #868686;
   --gray: #d1d5db;
   --bgBlue: #2563eb;
   --bgBlueFocus: #154fce;
+  --LinkHover: #471ce2;
 }
 * {
   box-sizing: border-box;
@@ -23,8 +25,12 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--bgBlue);
   text-decoration: none;
+  &:hover {
+    color: var(--LinkHover);
+    text-decoration: underline;
+  }
 }
 
 label {

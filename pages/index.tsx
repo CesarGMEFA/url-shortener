@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 
 import { item } from '../utils/interface/item.interface'
-import { DataInterface } from '../utils/interface/DataArrayObject.interface'
+
 import { supabase } from '../utils/supabaseClient'
+import { DataContext } from '../utils/hooks/appContext'
 
 import Layout from '../Layout/Layout'
 
@@ -13,14 +14,13 @@ import styles from '../styles/Home.module.scss'
 
 const initialState: item = {
   url: "",
-  shortUrl: "",
-  views: ""
+  shortUrl: ""
 }
 
-const Home = ({data}: DataInterface) => {
-  const [link, setLink] = useState(data)
-
+const Home = () => {
   const [Url, setUrl] = useState(initialState)
+
+  const { setLink, link }: any = useContext(DataContext)
 
   function notRepeat() {
     return link.some( ({shortUrl}:item) => shortUrl == Url.shortUrl)
@@ -41,28 +41,57 @@ const Home = ({data}: DataInterface) => {
     }
     // console.log(Url)
     if (!notRepeat()) {
-      setLink([...link, {url: Url.url, shortUrl: Url.shortUrl, views: "0"}]);
+      setLink([...link, {url: Url.url, shortUrl: Url.shortUrl, views: 0}]);
       console.log(link);
-      setUrl({url: "", shortUrl: ""});
       localStorage.setItem("urls", JSON.stringify([...link, {url: Url.url, shortUrl: Url.shortUrl, views: "0"}]));
+      setUrl({
+        url: "",
+        shortUrl: ""
+      });
 
-      // (async() => {
-      //   try {
-      //     const { data: sending, error } = await supabase
-      //       .from('link').insert([{url: Url.url, shortUrl: Url.shortUrl}]);
-      //     if (error) throw error;
-      //     console.log('sending', sending)
-      //   } catch (error) {
-      //     alert(error)
-      //   }
-      // })()
+      (async() => {
+        try {
+          const { data: sending, error } = await supabase
+            .from('link').insert([{url: Url.url, shortUrl: Url.shortUrl}]);
+          if (error) throw error;
+          console.log('sending', sending)
+        } catch (error) {
+          alert(error)
+        }
+      })()
+    }
+  }
+  async function deleteUrl(shortUrl: string) {
+    try {
+      const urls = localStorage.getItem("urls")
+      if (urls) {
+        const urlsData = JSON.parse(urls)
+        const urlsFiltered = urlsData.filter( (e:item) => e.shortUrl !== shortUrl)
+        localStorage.setItem("urls", JSON.stringify(urlsFiltered))
+        console.log('DELETE', urlsFiltered)
+        setLink(urlsFiltered)
+      }
+      const { data, error: e } = await supabase
+        .from('link')
+        .delete()
+        .eq('shortUrl', shortUrl)
+      if (e) throw  e
+
+    } catch(error) {
+      alert(error)
     }
   }
 
   useEffect(() => {
+    setLink(link)
+    console.log('render en el index: ', link)
+  },[link])
 
-    console.log(data)
-  }, [])
+  useEffect(() => {
+    if (link) {
+      localStorage.setItem("urls", JSON.stringify(link))
+    }
+  }, [link])
 
   return (
     <Layout>
@@ -74,10 +103,16 @@ const Home = ({data}: DataInterface) => {
           handleChangeURLshort={handleChangeURLshort} 
         />
         <section className={styles.boxItem}>
-          <Item url={"https://www.google.com"} shortUrl={"goog"} views={"2"} />
-          {link.map(({ url, shortUrl, views }: item) => (
-            <Item key={shortUrl} url={url} shortUrl={shortUrl} views={views} />
-          ))}
+          { link == undefined ? <p>Create your link now</p> 
+          :(
+            link.map(( i: item) => (
+              <Item 
+                key={i.shortUrl}
+                item={i}
+                deleteUrl={deleteUrl}
+              />
+            ))
+          )}
         </section>
       </section>
     </Layout>
@@ -85,16 +120,3 @@ const Home = ({data}: DataInterface) => {
 }
 
 export default Home
-
-export async function getStaticProps() {
-  const { data, error } = await supabase
-    .from('link')
-    .select('url,shortUrl,views')
-  if (error) throw error
-
-  return {
-    props: {
-      data
-    }
-  }
-}

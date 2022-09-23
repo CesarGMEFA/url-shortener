@@ -19,8 +19,15 @@
   }
 
   .boxItem {
-    height: 45vh;
-    padding: 2rem 5rem 2rem 0rem;
+    height: 39vh;
     overflow-y: scroll;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .contain {
+    .boxItem {
+      padding: 2rem 5rem 2rem 0rem;
+    }
   }
 }
