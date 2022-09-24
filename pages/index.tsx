@@ -98,6 +98,7 @@ const Home = () => {
       <section className={styles.contain}>
         <h1>Shorten your URL</h1>
         <FormCreate 
+          urlValue={Url}
           handleSubmit={handleSubmit}
           handleChangeURL={handleChangeURL}
           handleChangeURLshort={handleChangeURLshort} 
