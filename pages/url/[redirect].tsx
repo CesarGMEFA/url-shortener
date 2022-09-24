@@ -15,12 +15,15 @@ export default function Redirect() {
   const { redirect } = router.query
 
   async function postViews(item: item) {
-    const { data, error } = await supabase
-      .from('link')
-      .update({ views: item.views })
-      .eq('shortUrl', item.shortUrl)
-    if (error) throw error
-    console.log('send', data)
+    try {
+      const { data, error: e } = await supabase
+        .from('link')
+        .update({ views: item.views })
+        .eq('shortUrl', item.shortUrl)
+      if (e) throw e
+    } catch(error) {
+      alert(error)
+    }
   }
   
   useEffect(() => {
@@ -42,7 +45,6 @@ export default function Redirect() {
       }, 2000)
     } else {
       setItem(undefined);
-      console.log('itemUrl', itemUrl)
     }
   } else {
     setItem(undefined);

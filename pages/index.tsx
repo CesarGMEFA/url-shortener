@@ -42,7 +42,6 @@ const Home = () => {
     // console.log(Url)
     if (!notRepeat()) {
       setLink([...link, {url: Url.url, shortUrl: Url.shortUrl, views: 0}]);
-      console.log(link);
       localStorage.setItem("urls", JSON.stringify([...link, {url: Url.url, shortUrl: Url.shortUrl, views: "0"}]));
       setUrl({
         url: "",
@@ -54,7 +53,7 @@ const Home = () => {
           const { data: sending, error } = await supabase
             .from('link').insert([{url: Url.url, shortUrl: Url.shortUrl}]);
           if (error) throw error;
-          console.log('sending', sending)
+
         } catch (error) {
           alert(error)
         }
@@ -68,7 +67,6 @@ const Home = () => {
         const urlsData = JSON.parse(urls)
         const urlsFiltered = urlsData.filter( (e:item) => e.shortUrl !== shortUrl)
         localStorage.setItem("urls", JSON.stringify(urlsFiltered))
-        console.log('DELETE', urlsFiltered)
         setLink(urlsFiltered)
       }
       const { data, error: e } = await supabase
@@ -84,7 +82,6 @@ const Home = () => {
 
   useEffect(() => {
     setLink(link)
-    console.log('render en el index: ', link)
   },[link])
 
   useEffect(() => {

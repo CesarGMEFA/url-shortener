@@ -21,8 +21,8 @@ export default function Item({ item, deleteUrl }: itemWithFunction) {
         </div>
         <div>
           <span className={styles.infoTitle}>URL short: </span>
-          <Link href={`http://localhost:3000/url/${item.shortUrl}`}>
-            <a target="_blanket" rel='noreferrer'>http://localhost:3000/url/{item.shortUrl}</a>
+          <Link href={`/url/${item.shortUrl}`}>
+            <a target="_blank" rel='noreferrer'>https://url-shortener-cg.vercel.app//url/{item.shortUrl}</a>
           </Link>
         </div>
         <div>
