@@ -7,16 +7,16 @@
   justify-content: space-between;
   align-items: center;
 
-  .button {
-    padding: 0.6rem 2rem 0.5rem;
+  .buttonDelete {
+    padding: 0.4rem 1rem 0.3rem;
     color: red;
-    font-weight: 500;
-    font-size: 1.6rem;
+    font-weight: 700;
+    font-size: 1.2rem;
     background-color: var(--white);
     border: 2px solid red;
     cursor: pointer;
   }
-  .button:hover {
+  .buttonDelete:hover {
     background-color: var(--black);
   }
 }

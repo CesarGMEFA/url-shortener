@@ -60,25 +60,6 @@ const Home = () => {
       })()
     }
   }
-  async function deleteUrl(shortUrl: string) {
-    try {
-      const urls = localStorage.getItem("urls")
-      if (urls) {
-        const urlsData = JSON.parse(urls)
-        const urlsFiltered = urlsData.filter( (e:item) => e.shortUrl !== shortUrl)
-        localStorage.setItem("urls", JSON.stringify(urlsFiltered))
-        setLink(urlsFiltered)
-      }
-      const { data, error: e } = await supabase
-        .from('link')
-        .delete()
-        .eq('shortUrl', shortUrl)
-      if (e) throw  e
-
-    } catch(error) {
-      alert(error)
-    }
-  }
 
   useEffect(() => {
     setLink(link)
@@ -107,7 +88,6 @@ const Home = () => {
               <Item 
                 key={i.shortUrl}
                 item={i}
-                deleteUrl={deleteUrl}
               />
             ))
           )}

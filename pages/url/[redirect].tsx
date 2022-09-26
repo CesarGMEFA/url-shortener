@@ -10,7 +10,7 @@ import LoaderPage from "../../components/LoaderPage";
 
 export default function Redirect() {
   const [item, setItem]: any = useState(null)
-  const { setLink }: any = useContext(DataContext)
+  const { link, setLink }: any = useContext(DataContext)
   const router = useRouter()
   const { redirect } = router.query
 
@@ -25,19 +25,19 @@ export default function Redirect() {
       alert(error)
     }
   }
-  
+
   useEffect(() => {
   const data = localStorage.getItem("urls");
   
   if (data) {
+    console.log('data', data)
     const urlsData: item[] = JSON.parse(data);
     
     const itemUrl = urlsData.find( (e: item) => e.shortUrl === redirect)
 
     if (itemUrl) {
       if (itemUrl.views) itemUrl.views++
-      localStorage.setItem("urls", JSON.stringify(itemUrl))
-      setLink(itemUrl)
+      localStorage.setItem("urls", JSON.stringify(urlsData))
       setItem(itemUrl)
       postViews(itemUrl);
       setTimeout(() => {

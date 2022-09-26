@@ -2,9 +2,9 @@
 .contain {
   height: 90vh;
   min-width: 30rem;
-  width: 70%;
+  width: 90%;
   max-width: 100rem;
-  padding: 2rem 4rem 3rem;
+  padding: 2rem 2rem 3rem;
   background-color: var(--white);
 
   h1 {
@@ -21,6 +21,14 @@
   .boxItem {
     height: 39vh;
     overflow-y: scroll;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .contain {
+    width: 70%;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 

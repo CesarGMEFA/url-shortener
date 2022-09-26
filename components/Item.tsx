@@ -1,17 +1,17 @@
 import Link from 'next/link'
-import { MutableRefObject } from 'react'
+import { useContext } from 'react'
 import styles from '../styles/components/Item.module.scss'
 
+import { DataContext } from '../utils/hooks/appContext'
 import { item } from '../utils/interface/item.interface'
 
-import { supabase } from '../utils/supabaseClient'
-
 interface itemWithFunction {
-  item: item,
-  deleteUrl: Function
+  item: item
 }
-export default function Item({ item, deleteUrl }: itemWithFunction) {
 
+export default function Item({ item }: itemWithFunction) {
+
+  const { deleteUrl }: any = useContext(DataContext)
   return (
     <section className={styles.item}>
       <section className={styles.item_content}>
@@ -22,7 +22,7 @@ export default function Item({ item, deleteUrl }: itemWithFunction) {
         <div>
           <span className={styles.infoTitle}>URL short: </span>
           <Link href={`/url/${item.shortUrl}`}>
-            <a target="_blank" rel='noreferrer'>https://url-shortener-cg.vercel.app//url/{item.shortUrl}</a>
+            <a target="_blank" rel='noreferrer'>https://url-shortener-cg.vercel.app/url/{item.shortUrl}</a>
           </Link>
         </div>
         <div>
@@ -30,7 +30,7 @@ export default function Item({ item, deleteUrl }: itemWithFunction) {
           <span>{item.views}</span>
         </div>
       </section>
-      <button className={styles.button} type='button' onClick={() => deleteUrl(item.shortUrl)}>X</button>
+      <button className={styles.buttonDelete} type='button' onClick={() => deleteUrl(item.shortUrl)}>X</button>
     </section>
   )
 }
