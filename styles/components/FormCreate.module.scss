@@ -3,42 +3,4 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  .inputUrl {
-    width: 100%;
-    margin: 0;
-    margin-bottom: 1rem;
-    padding: 1.2rem 0.6rem;
-    color: var(--textGrayInput);
-    font-size: 1.4rem;
-    font-weight: 400;
-    background-color: var(--white);
-    background-clip: text;
-    border: 1px solid var(--gray);
-    border-radius: 0.4rem;
-    display: block;
-  
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .inputUrl:focus {
-    border-color: var(--bgBlue);
-    outline: 0.2rem solid transparent;
-    outline-offset: 0.2rem;
-  }
-
-  .button {
-    padding: 0.8rem 2.5rem;
-    color: var(--white);
-    font-weight: 500;
-    font-size: 1.6rem;
-    background-color: var(--bgBlue);
-    border: none;
-    cursor: pointer;
-  }
-  .button:hover {
-    background-color: var(--bgBlueFocus);
-  }
 }

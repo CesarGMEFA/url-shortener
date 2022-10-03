@@ -19,7 +19,6 @@ export function useRendering() {
       const d: ({ url: any; } & { shortUrl: any; } & { views: any; })[] | null = await getLinksData()
       setLink(d);
     })()
-    console.log("data context: ",link)
   }, [])
 
   async function deleteUrl(shortUrl: string) {

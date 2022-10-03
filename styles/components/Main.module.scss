@@ -1,9 +1,26 @@
+.logout_box {
+  padding: 5px 10px;
+  color: var(--black);
+  font-weight: 500;
+  border: 2px solid var(--black);
+  background-color: var(--white);
+
+  cursor: pointer;
+
+  position: absolute;
+  top: 20px;
+  right: 10%;
+
+  &:hover {
+    color: var(--bgBlue);
+  }
+}
 
 .contain {
   height: 90vh;
   min-width: 30rem;
   width: 90%;
-  max-width: 100rem;
+  max-width: 70rem;
   padding: 2rem 2rem 3rem;
   background-color: var(--white);
 
@@ -26,7 +43,6 @@
 
 @media screen and (min-width: 550px) {
   .contain {
-    width: 70%;
     padding-left: 4rem;
     padding-right: 4rem;
   }

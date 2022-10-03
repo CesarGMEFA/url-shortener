@@ -5,7 +5,7 @@ export default function FormCreate({ urlValue, handleSubmit, handleChangeURL, ha
     <form className={styles.form} onSubmit={handleSubmit}>
       <label htmlFor="url">URL:</label>
       <input
-        className={styles.inputUrl}
+        className="inputs"
         type="text"
         id="url"
         value={urlValue.url}
@@ -14,14 +14,14 @@ export default function FormCreate({ urlValue, handleSubmit, handleChangeURL, ha
       />
       <label htmlFor="urlShort">URL short:</label>
       <input
-        className={styles.inputUrl}
+        className="inputs"
         type="text"
         id="urlShort"
         value={urlValue.shortUrl}
         placeholder="add short url. Ex: goog"
         onChange={handleChangeURLshort}
       />
-      <input className={styles.button} type="submit" value="Create" />
+      <input className="button" type="submit" value="Create" />
     </form>
   )
 }
