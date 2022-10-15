@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useContext, Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
+import Head from 'next/head'
 
 import Auth from '../components/Auth'
 import Main from '../components/Main'
 
 import { supabase } from '../utils/supabaseClient'
 
-import Layout from '../Layout/Layout'
 
 
 const Home = () => {
@@ -47,6 +47,11 @@ const Home = () => {
 
   return (
       <Fragment>
+        <Head>
+          <title>url shortener</title>
+          <meta name='description' content='App to cut and sava in Supabase'/>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         {!session ? (
           <Auth />
         ) : (
